@@ -12,6 +12,16 @@ cell
 
 navigationcontroller
 
+uiscrollview
+
+sdwebimage
+
+afnetworking
+
+masonry
+
+mjrefresh
+
 
 
 jump transdata：
