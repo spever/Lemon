@@ -8,6 +8,8 @@
 #import "MineViewController.h"
 #import "MenuItem.h"
 #import "HomeTagDetailPageViewController.h"
+#import "ImageTitleDescTableViewCell.h"
+#import <Masonry.h>
 
 @interface MineViewController ()
 
@@ -27,11 +29,13 @@ typedef void(^GTListLoaderMenuFinishBlock)(NSError *error,NSMutableArray *array)
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     _pageSize = 1;
-    myData = [[NSMutableArray alloc] initWithObjects:
-    @"Data 1 in array",@"Data 2 in array",@"Data 3 in array",@"Data 4 in array",
-    @"Data 5 in array",@"Data 6 in array",@"Data 7 in array",@"Data 8 in array",
-    @"Data 9 in array",@"Data 10 in array",@"Data 11 in array",@"Data 12 in array",
-    nil];
+//    myData = [[NSMutableArray alloc] initWithObjects:
+//    @"Data 1 in array",@"Data 2 in array",@"Data 3 in array",@"Data 4 in array",
+//    @"Data 5 in array",@"Data 6 in array",@"Data 7 in array",@"Data 8 in array",
+//    @"Data 9 in array",@"Data 10 in array",@"Data 11 in array",@"Data 12 in array",
+//    nil];
+    
+    myData = @[].mutableCopy;
     [self addTableView];
     [self bindRefreshVc:_tableView];
     [self loadData:_pageSize];
@@ -49,50 +53,63 @@ typedef void(^GTListLoaderMenuFinishBlock)(NSError *error,NSMutableArray *array)
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return [myData count]/2;
-
+    return [myData count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static NSString *cellIdentifier = @"cellID";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    ImageTitleDescTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell == nil){
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+        cell = [[ImageTitleDescTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
     }
-    NSString *stringForCell;
-    if(indexPath.section == 0){
-        stringForCell = [myData objectAtIndex:indexPath.row];
-    }else if (indexPath.section == 1){
-        stringForCell = [myData objectAtIndex:indexPath.row + [myData count]/2 ];
-    }
-    [cell.textLabel setText:stringForCell];
+//
+//    [_tableView registerClass:[ImageTitleDescTableViewCell class] forCellReuseIdentifier:cellIdentifier];
+//    ImageTitleDescTableViewCell *cell = [_tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+//    NSString *stringForCell;
+//    if(indexPath.section == 0){
+//        stringForCell = [myData objectAtIndex:indexPath.row];
+//    }else if (indexPath.section == 1){
+//        stringForCell = [myData objectAtIndex:indexPath.row + [myData count]/2 ];
+//    }
+//    [cell.textLabel setText:stringForCell];
+//    [cell.detailTextLabel setText:@"hello"];
+//    [cell.imageView setImage:[UIImage imageNamed:@"icon_arrow_left"]];
+    
+    [cell setItem:myData[indexPath.row]];
     return  cell;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+//- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    return 2;
+//}
+
+//- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+//    NSString *headerTitle;
+//    if(section == 0){
+//        headerTitle = @"Section 1 Header";
+//    }else{
+//        headerTitle  =@"Section 2 Header";
+//    }
+//    return headerTitle;
+//}
+//
+//
+//- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
+//    NSString *footerTitle;
+//    if( section == 0){
+//        footerTitle = @"Section 1 Footer";
+//    }else{
+//        footerTitle = @"Section 2 Footer";
+//    }
+//    return footerTitle;
+//}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    return 120;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-    NSString *headerTitle;
-    if(section == 0){
-        headerTitle = @"Section 1 Header";
-    }else{
-        headerTitle  =@"Section 2 Header";
-    }
-    return headerTitle;
-}
 
-
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section{
-    NSString *footerTitle;
-    if( section == 0){
-        footerTitle = @"Section 1 Footer";
-    }else{
-        footerTitle = @"Section 2 Footer";
-    }
-    return footerTitle;
-}
 
 
 - (void)addTableView{
@@ -146,8 +163,9 @@ typedef void(^GTListLoaderMenuFinishBlock)(NSError *error,NSMutableArray *array)
           
             MenuItem *item = [[MenuItem alloc] initValueWithDictionary:info];
             [listItemArray addObject:item];
-            [myData addObject:[info valueForKey:@"title"] ];
+//            [myData addObject:[info valueForKey:@"title"] ];
         }
+        [myData addObjectsFromArray:listItemArray];
         dispatch_async(dispatch_get_main_queue(), ^{
             if(finishBlock){
                 finishBlock(nil,listItemArray);
@@ -170,7 +188,7 @@ typedef void(^GTListLoaderMenuFinishBlock)(NSError *error,NSMutableArray *array)
     NSLog(@"section:%ld Row:%ld selected and its data is %@",indexPath.section,indexPath.row,cell.textLabel.text);
     HomeTagDetailPageViewController *vc = [[HomeTagDetailPageViewController alloc] init];
     [vc setModalPresentationStyle:UIModalPresentationFullScreen];
-    [vc setItemData:cell.textLabel.text];
+    [vc setItemData:((MenuItem *)[myData objectAtIndex:indexPath.row]).food_str];
     
  //  //delegate传递数据
 //    self.mDelegate = vc;

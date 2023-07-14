@@ -8,6 +8,7 @@
 #import "NineGridViewController.h"
 #import <UIScrollView+MJRefresh.h>
 #import <MJRefresh.h>
+#import "UIDevice+StateHeight.h"
 
 @interface NineGridViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 
@@ -20,16 +21,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self addTitlebar];
     [self addCollectionView];
 }
 
 
 -(void)addTitlebar{
+    UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, [UIDevice dev_statusBarHeight],self.view.frame.size.width, 44)];
     UIButton *leftItem = [UIButton buttonWithType:UIButtonTypeCustom];
-    leftItem.frame = CGRectMake(0, 0, 40, 40);
+    leftItem.frame = CGRectMake(0, 0, 24, 24);
     [leftItem setBackgroundImage:[UIImage imageNamed:@"icon_arrow_left"] forState:UIControlStateNormal];
     [leftItem addTarget:self action:@selector(leftBarBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:leftItem];
+    [navBar pushNavigationItem:self.navigationItem animated:NO];
+    
+    [self.view addSubview:navBar];
 }
 
 
@@ -41,7 +48,7 @@
     layout.minimumLineSpacing=80;
     
     
-    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,55, self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
+    _collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0,([UIDevice dev_statusBarHeight]+44), self.view.frame.size.width, self.view.frame.size.height) collectionViewLayout:layout];
     
     _collectionView.delegate=self;
     _collectionView.dataSource =self;

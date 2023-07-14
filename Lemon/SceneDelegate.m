@@ -28,6 +28,8 @@
     
     ViewController *vc= [[ViewController alloc]init];
     UITabBarController *tabVc = [vc initialContainer];
+//    UINavigationController *nav = [[UINavigationController alloc]initWithRootViewController:tabVc];
+//    [self.window setRootViewController:nav];
     [self.window setRootViewController:tabVc];
     [self.window makeKeyAndVisible];
     

@@ -9,6 +9,8 @@
 #import "HomeTagDetailPageViewController.h"
 #import "CollectionViews/ContainerScrollerLayout.h"
 #import "CollectionViews/CellForImageCollectionViewCell.h"
+#import "UIDevice+StateHeight.h"
+#import <Masonry.h>
 
 @interface ClassRoomViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
@@ -32,9 +34,7 @@
     [self addLabel];
     [self arrayOfPhotos];
     [self createCollectionView];
-    self.page = [[UIPageControl alloc] initWithFrame:CGRectMake(150, 520, self.view.bounds.size.width-300, 20)];
-    [self.view addSubview:self.page];
-    self.page.numberOfPages = self.arrsPhotos.count;
+    [self addPageControl];
     [self addNSTimer];
 }
 -(void)addToolbar
@@ -50,10 +50,10 @@
                                                             target:self
                                                             action:@selector(toolBarItem2:)];
     NSArray *toolbarItems = [NSArray arrayWithObjects:customItem1,spaceItem, customItem2, nil];
-    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, 50, self.view.frame.size.width, 50)];
+    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, [UIDevice dev_statusBarHeight], self.view.frame.size.width, 50)];
     [toolbar setBarStyle:UIBarStyleDefault];
-    [self.view addSubview:toolbar];
     [toolbar setItems:toolbarItems];
+    [self.view addSubview:toolbar];
 }
 //
 -(IBAction)toolBarItem1:(id)sender{
@@ -74,7 +74,7 @@
 
 -(void)addLabel{
     if(!self.label){
-       self.label = [[UILabel alloc]initWithFrame:CGRectMake(20, 200, 360, 80)];
+       self.label = [[UILabel alloc]initWithFrame:CGRectMake(20, 200, self.view.frame.size.width-40, 80)];
     }
 
     self.label.text=@"This is a sample text of mulitple lines.here number of lines is not limited.";
@@ -96,10 +96,29 @@
     return _arrsPhotos;
 }
 
+
+- (void)addPageControl {
+    self.page = [[UIPageControl alloc] initWithFrame:CGRectZero];
+    [self.view addSubview:self.page];
+    self.page.numberOfPages = self.arrsPhotos.count;
+    [self.page mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.collectionView);
+        make.top.equalTo(self.collectionView.mas_bottom).offset(-25);
+    }];
+}
+
 -(void)createCollectionView{
     self.flowLayout = [[ContainerScrollerLayout alloc] init];
-    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 300, self.view.bounds.size.width, 300) collectionViewLayout:self.flowLayout];
+    self.flowLayout.itemSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.width * 9/16);
+    self.collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:self.flowLayout];
     [self.view addSubview:self.collectionView];
+    
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.right.offset(0);
+        make.size.mas_equalTo(CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.width * 9/16));
+        make.top.equalTo(self.label.mas_bottom).offset(50);
+    }];
+    
     _collectionView.dataSource = self;
     _collectionView.delegate = self;
     [self.collectionView registerClass:[CellForImageCollectionViewCell class] forCellWithReuseIdentifier:@"cellpool"];

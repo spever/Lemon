@@ -15,6 +15,8 @@
 
 @interface HomeViewController ()
 
+@property(nonatomic,strong) UIScrollView *scroll;
+
 @end
 
 @implementation HomeViewController
@@ -22,6 +24,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    [self addScrollView];
+
     [self addTextField];
     [self addTextFieldWithDifferentKeyboard];
     [self addDifferentButtonType];
@@ -33,12 +38,22 @@
     NSLog(@"dev_navigationBarHeight---%f",[UIDevice dev_navigationBarHeight]);
     NSLog(@"dev_navigationFullHeight---%f",[UIDevice dev_navigationFullHeight]);
     NSLog(@"dev_tabBarFullHeight---%f",[UIDevice dev_tabBarFullHeight]);
-    
+
     [self addNavigation];
-    
+
 }
 
-/**增加导航栏**/
+-(void)addScrollView{
+    self.scroll = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+    self.scroll.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+    self.scroll.contentSize =CGSizeMake(0, self.view.frame.size.height+120);
+    [self.view addSubview:self.scroll];
+
+}
+
+
+/**
+*增加导航栏**/
 -(void)addNavigation{
     UINavigationBar *navBar = [[UINavigationBar alloc] initWithFrame:CGRectMake(0, 600,self.view.frame.size.width, 44)];
     //创建一个导航栏集合
@@ -62,7 +77,8 @@
     [navItem setRightBarButtonItem:rightButton];
     
     //将标题栏中的内容全部添加到主视图当中
-    [self.view addSubview:navBar];
+    [self.scroll addSubview:navBar];
+    
 }
 
 
@@ -79,7 +95,7 @@
     textField.placeholder=@"Simple text field";
     textField.leftView=prefixLabel;
     textField.leftViewMode = UITextFieldViewModeAlways;
-    [self.view addSubview:textField];
+    [self.scroll addSubview:textField];
     textField.delegate=(id)self;
     
 }
@@ -91,7 +107,7 @@
    textField1.delegate = self;
    textField1.borderStyle = UITextBorderStyleRoundedRect;
    textField1.placeholder = @"Default Keyboard";
-   [self.view addSubview:textField1];
+   [self.scroll addSubview:textField1];
 
    UITextField *textField2 = [[UITextField alloc]initWithFrame:
    CGRectMake(20, 150, 280, 30)];
@@ -99,7 +115,7 @@
    textField2.borderStyle = UITextBorderStyleRoundedRect;
    textField2.keyboardType = UIKeyboardTypeASCIICapable;
    textField2.placeholder = @"ASCII keyboard";
-   [self.view addSubview:textField2];
+   [self.scroll addSubview:textField2];
 
    UITextField *textField3 = [[UITextField alloc]initWithFrame:
    CGRectMake(20, 200, 280, 30)];
@@ -107,7 +123,7 @@
    textField3.borderStyle = UITextBorderStyleRoundedRect;
    textField3.keyboardType = UIKeyboardTypePhonePad;
    textField3.placeholder = @"Phone pad keyboard";
-   [self.view addSubview:textField3];
+   [self.scroll addSubview:textField3];
 
    UITextField *textField4 = [[UITextField alloc]initWithFrame:
    CGRectMake(20, 250, 280, 30)];
@@ -115,7 +131,7 @@
    textField4.borderStyle = UITextBorderStyleRoundedRect;
    textField4.keyboardType = UIKeyboardTypeDecimalPad;
    textField4.placeholder = @"Decimal pad keyboard";
-   [self.view addSubview:textField4];
+   [self.scroll addSubview:textField4];
 
    UITextField *textField5= [[UITextField alloc]initWithFrame:
    CGRectMake(20, 300, 280, 30)];
@@ -123,7 +139,7 @@
    textField5.borderStyle = UITextBorderStyleRoundedRect;
    textField5.keyboardType = UIKeyboardTypeEmailAddress;
    textField5.placeholder = @"Email keyboard";
-   [self.view addSubview:textField5];
+   [self.scroll addSubview:textField5];
 
    UITextField *textField6= [[UITextField alloc]initWithFrame:
    CGRectMake(20, 350, 280, 30)];
@@ -131,7 +147,7 @@
    textField6.borderStyle = UITextBorderStyleRoundedRect;
    textField6.keyboardType = UIKeyboardTypeURL;
    textField6.placeholder = @"URL keyboard";
-   [self.view addSubview:textField6];
+   [self.scroll addSubview:textField6];
 }
 
 
@@ -151,7 +167,7 @@
     
     UIView *v1 = [[UIView alloc] init];
     v1.backgroundColor = [UIColor yellowColor];
-    [self.view addSubview:v1];
+    [self.scroll addSubview:v1];
     [v1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.center.equalTo(self.view);
         
@@ -160,13 +176,13 @@
     
 
     
-    [self.view addSubview:infoRectBtn];
+    [self.scroll addSubview:infoRectBtn];
     [infoRectBtn addTarget:self action:@selector(btnAction:) forControlEvents:UIControlEventTouchUpInside];
        
     UIButton *infoLightButton = [UIButton buttonWithType:UIButtonTypeInfoLight];
     [infoLightButton setFrame:CGRectMake(60, 500, 200, 40)];
     [infoLightButton addTarget:self action:@selector(btnTap:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:infoLightButton];
+    [self.scroll addSubview:infoLightButton];
 
 
 }
@@ -178,8 +194,95 @@
     iv.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onClickImage:)];
     [iv addGestureRecognizer:tap];
-    [self.view addSubview:iv];
+    [self.scroll addSubview:iv];
 }
+
+
+/** *方式二:::利用约束自动计算UIScrollView的contentsize**/
+-(void)autoCalculateHeight{
+    
+    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+       [self.view addSubview:scrollView];
+       scrollView.showsHorizontalScrollIndicator = NO;
+       scrollView.alwaysBounceVertical = YES;
+       scrollView.backgroundColor = [UIColor whiteColor];
+       // 先不设置 contentSize.毕竟子视图有多长还不知道
+       //scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width, xxxx);
+       
+       /**
+        
+           不把 scrollView 的 contentSize 写死,.
+           而是在其内部放一个uiview.
+           在 uiview 内部添加子视图,用约束设置.
+           根据内部约束的子视图计算 uiview 的大小.
+           然后根据 uiview 的大小设置 scrollView 的 contentSize.
+        */
+       
+       /**
+           现在的做法:
+           记录每一个子视图的高度记忆边距数据,然后累加起来.
+        */
+       UIView *containerView = [[UIView alloc] init];
+       // 容器,只设置 x,y,w  高度 h 先不设置,用子视图的约束去计算
+       [scrollView addSubview:containerView];
+       [containerView mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.left.top.offset(0);
+           make.width.equalTo(scrollView.mas_width);
+       }];
+       
+       
+       UIView *childView1 = [[UIView alloc] init];
+       [containerView addSubview:childView1];
+       childView1.backgroundColor = [UIColor blueColor];
+       
+       [childView1 mas_makeConstraints:^(MASConstraintMaker *make) {
+           // 头部约束
+           make.top.offset(20);
+           make.left.offset(0);
+           make.width.equalTo(containerView.mas_width);
+           make.height.offset(300);
+           
+       }];
+       
+       UIView *childView2 = [[UIView alloc] init];
+       [containerView addSubview:childView2];
+       childView2.backgroundColor = [UIColor greenColor];
+       
+       [childView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.left.offset(0);
+           make.top.equalTo(childView1.mas_bottom).offset(50);
+           make.height.offset(400);
+           make.width.equalTo(containerView.mas_width);
+           
+       }];
+
+       
+       UIView *childView3 = [[UIView alloc] init];
+       [containerView addSubview:childView3];
+       childView3.backgroundColor = [UIColor redColor];
+       
+       [childView3 mas_makeConstraints:^(MASConstraintMaker *make) {
+           make.left.offset(0);
+           make.top.equalTo(childView2.mas_bottom).offset(100);
+           make.width.equalTo(containerView.mas_width);
+           make.height.offset(700);
+           
+           // 底部约束,用于计算containerView 的 height
+          make.bottom.offset(-50);
+       }];
+
+       // 不用去调用约束立即计算的代码,有个小技巧,使用 dispatch_after 即可拿到约束计算完毕之后的 containerView 的height 值.
+       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+           NSLog(@"%.f",containerView.frame.size.height);
+           scrollView.contentSize = CGSizeMake(self.view.frame.size.width, containerView.frame.size.height);
+       });
+
+}
+
+
+
+
+
 
 
 #pragma mark ---按钮响应方法

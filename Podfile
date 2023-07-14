@@ -5,6 +5,7 @@ target 'Lemon' do
 pod 'AFNetworking','~>3.0'
 pod 'Masonry'
 pod 'MJRefresh'
+pod 'SDWebImage'
 
 end
 
