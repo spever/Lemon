@@ -110,8 +110,8 @@
             filePath = "Lemon/HomeViewController.m"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
+            startingLineNumber = "316"
+            endingLineNumber = "316"
             landmarkName = "-onClickImage:"
             landmarkType = "7">
             <Locations>

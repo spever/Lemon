@@ -40,6 +40,11 @@
     NSLog(@"dev_tabBarFullHeight---%f",[UIDevice dev_tabBarFullHeight]);
 
     [self addNavigation];
+    
+    NSString *homePath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+//    NSLog(@"home%@",homePath);
+    DevLog(@"home%@",homePath);
+    
 
 }
 
@@ -291,9 +296,10 @@
     HomeTagDetailPageViewController *detailVc = [[HomeTagDetailPageViewController alloc] init];
     detailVc.modalPresentationStyle =   UIModalPresentationFullScreen;
 
-    [self presentViewController:detailVc animated:YES completion:^{
-        NSLog(@"---------");
-    }];
+//    [self presentViewController:detailVc animated:YES completion:^{
+//        NSLog(@"---------");
+//    }];
+    [self.navigationController pushViewController:detailVc animated:YES];
 
 }
 

@@ -16,8 +16,38 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A3O-uk-ZlA">
+                                <rect key="frame" x="0.0" y="120" width="131" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Nnw-D6-Xcf">
+                                <rect key="frame" x="131" y="120" width="131" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fKJ-uv-bHy">
+                                <rect key="frame" x="262" y="120" width="131" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="fKJ-uv-bHy" firstAttribute="width" secondItem="A3O-uk-ZlA" secondAttribute="width" id="Dgx-qE-MdN"/>
+                            <constraint firstItem="fKJ-uv-bHy" firstAttribute="leading" secondItem="Nnw-D6-Xcf" secondAttribute="trailing" id="K7u-3Q-sez"/>
+                            <constraint firstItem="fKJ-uv-bHy" firstAttribute="centerY" secondItem="A3O-uk-ZlA" secondAttribute="centerY" id="NzQ-rm-ZtT"/>
+                            <constraint firstItem="Nnw-D6-Xcf" firstAttribute="height" secondItem="A3O-uk-ZlA" secondAttribute="height" id="Owp-h3-xJi"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fKJ-uv-bHy" secondAttribute="trailing" id="ZBq-63-fBC"/>
+                            <constraint firstItem="A3O-uk-ZlA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="aKI-aC-asO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fKJ-uv-bHy" secondAttribute="trailing" id="hzD-ch-off"/>
+                            <constraint firstItem="Nnw-D6-Xcf" firstAttribute="leading" secondItem="A3O-uk-ZlA" secondAttribute="trailing" id="kMr-WY-ieS"/>
+                            <constraint firstItem="fKJ-uv-bHy" firstAttribute="height" secondItem="A3O-uk-ZlA" secondAttribute="height" id="khu-2C-QBU"/>
+                            <constraint firstItem="Nnw-D6-Xcf" firstAttribute="centerY" secondItem="A3O-uk-ZlA" secondAttribute="centerY" id="oQb-Za-e9j"/>
+                            <constraint firstItem="Nnw-D6-Xcf" firstAttribute="width" secondItem="A3O-uk-ZlA" secondAttribute="width" id="qni-5E-O8f"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

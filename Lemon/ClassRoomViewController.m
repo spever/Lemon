@@ -50,7 +50,7 @@
                                                             target:self
                                                             action:@selector(toolBarItem2:)];
     NSArray *toolbarItems = [NSArray arrayWithObjects:customItem1,spaceItem, customItem2, nil];
-    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, [UIDevice dev_statusBarHeight], self.view.frame.size.width, 50)];
+    UIToolbar *toolbar = [[UIToolbar alloc]initWithFrame:CGRectMake(0, [UIDevice dev_statusBarHeight]+60, self.view.frame.size.width, 50)];
     [toolbar setBarStyle:UIBarStyleDefault];
     [toolbar setItems:toolbarItems];
     [self.view addSubview:toolbar];

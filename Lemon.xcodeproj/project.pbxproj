@@ -78,6 +78,7 @@
 		B174E1A62A61396300FE8CD3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
 		B174E1A72A61397200FE8CD3 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/Main.strings"; sourceTree = "<group>"; };
 		B174E1A82A61397300FE8CD3 /* zh-HK */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-HK"; path = "zh-HK.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		B188293F2A7C8E2600E5021D /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B19F39442A404C94000BAB5A /* Lemon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lemon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B19F39512A404C94000BAB5A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B19F39532A404C95000BAB5A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -238,6 +239,7 @@
 				B19F39532A404C95000BAB5A /* Assets.xcassets */,
 				B19F39552A404C95000BAB5A /* LaunchScreen.storyboard */,
 				B19F39582A404C95000BAB5A /* Info.plist */,
+				B188293F2A7C8E2600E5021D /* PrefixHeader.pch */,
 				B19F39592A404C95000BAB5A /* main.m */,
 				B1F84D782A57F2B500FE1105 /* Student.h */,
 				B1F84D792A57F2BE00FE1105 /* Student.m */,
@@ -663,6 +665,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2P752QMJHV;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Lemon/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IceCool;
@@ -692,6 +695,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2P752QMJHV;
+				GCC_PREFIX_HEADER = "$(SRCROOT)/Lemon/PrefixHeader.pch";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lemon/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = IceLemon;

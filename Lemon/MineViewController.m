@@ -114,7 +114,7 @@ typedef void(^GTListLoaderMenuFinishBlock)(NSError *error,NSMutableArray *array)
 
 - (void)addTableView{
     _tableView = [[UITableView alloc] initWithFrame:self.view.frame style:UITableViewStylePlain];
-    _tableView.backgroundColor = [UIColor yellowColor];
+//    _tableView.backgroundColor = [UIColor yellowColor];
     _tableView.dataSource = self;
     _tableView.delegate =self;
     [self.view addSubview:_tableView];

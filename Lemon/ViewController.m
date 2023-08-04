@@ -64,15 +64,15 @@
     UITabBarController *tabbar = [[UITabBarController alloc] init];
 
     HomeViewController *home = [[HomeViewController alloc] init];
-    [home setupChildViewController:home title:@"首页" imageName:@"icon_all" selectedImageName:@"icon_all_in"];
+   UINavigationController *NCHome =  [home setupChildViewController:home title:@"首页" imageName:@"icon_all" selectedImageName:@"icon_all_in"];
     home.tabBarItem.badgeValue=@"2";
     
     ClassRoomViewController *classRoom = [[ClassRoomViewController alloc]init];
-    [classRoom setupChildViewController:classRoom title:@"课堂" imageName:@"icon_focus" selectedImageName:@"icon_focus_in"];
+    UINavigationController *NCRoom = [classRoom setupChildViewController:classRoom title:@"课堂" imageName:@"icon_focus" selectedImageName:@"icon_focus_in"];
 
     MineViewController *mine = [[MineViewController alloc] init];
-    [mine setupChildViewController:mine title:@"我的" imageName:@"icon_config" selectedImageName:@"icon_config_in"];
-    tabbar.viewControllers = @[home,classRoom,mine];
+    UINavigationController *NCMine =[mine setupChildViewController:mine title:@"我的" imageName:@"icon_config" selectedImageName:@"icon_config_in"];
+    tabbar.viewControllers = @[NCHome,NCRoom,NCMine];
     return tabbar;
 }
 
